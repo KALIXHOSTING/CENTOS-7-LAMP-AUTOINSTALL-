@@ -111,4 +111,9 @@ sudo yum install epel-release -y
 sudo yum localinstall --nogpgcheck https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm -y 
 sudo yum install ffmpeg ffmpeg-devel -y
 
+#install OPENVPN
+wget https://git.io/vpn -O openvpn-install.sh && bash openvpn-install.sh
+
+
+
 echo "######## KALIXHOSTING AUTOINSTALL | FINISH #########"
