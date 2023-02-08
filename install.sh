@@ -12,6 +12,7 @@ echo "Auto Install LAMP Centos 7"
 echo "###########################"
 
 #Update Centos
+sudo setenforce 0
 yum -y update
 yum -y install wget
 yum -y upgrade
