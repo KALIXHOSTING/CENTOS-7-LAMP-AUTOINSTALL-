@@ -21,13 +21,22 @@ chmod +rw /var/www/html
 chmod 777 /root
 chmod 777 /var/
 chmod 777 /var/www/html
+yum -y install epel-release
+
+yum -y update
+
+
+yum -y install transmission-cli transmission-common transmission-daemon
+
+systemctl start transmission-daemon.service
 
 
 #EPEL Repo
 wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
-wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+wget https://rpms.remirepo.net/enterprise/remi-release-7.rpm
 rpm -Uvh remi-release-7.rpm epel-release-latest-7.noarch.rpm
-yum --enablerepo=remi update remi-release
+yum install yum-utils
+yum-config-manager --enable remi-php74
 
 #Install MariaDB
 yum -y install mariadb-server mariadb
@@ -79,5 +88,14 @@ case $passmaria in
 esac
 
 systemctl restart httpd.service
+
+
+#CONFIG CERTBOT
+sudo yum -y install certbot python2-certbot-apache mod_ssl
+
+yum -y install perl-CGI perl-libwww-perl perl-DBI perl-DBD-MySQL perl-GD perl-Cache-Memcached perl-Digest-SHA perl-LWP-Protocol-https
+
+systemctl restart httpd.service
+
 
 echo "######## KALIXHOSTING AUTOINSTALL | FINISH #########"
