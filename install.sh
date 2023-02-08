@@ -1,139 +1,77 @@
-#! /bin/bash
-echo 'UPDATE'
-
-sudo yum clean all
-echo 'done'
-
-
-echo 'UPDATE'
-
-sudo yum update -y
-
-echo 'done'
-
-echo 'UPGRADE'
-
-sudo yum upgrade -y 
-
-echo 'done'
-
-
-echo 'INSTALL APACHE 2'
-
-sudo yum install httpd -y
-
-
-echo 'done'
-
-
-echo 'START APACHE 2'
-
-sudo systemctl start httpd.service
-
-echo 'done'
-
-echo 'MARIADB'
-
-sudo yum install mariadb-server mariadb -y
-
-echo 'done'
-
-echo 'MARIADB start'
-
-sudo systemctl start mariadb
-
-echo 'done'
-
-echo 'MARIADB ENABLE'
-
-sudo yum install mariadb-server mariadb -y
-
-
-echo 'done'
-
-echo 'MARIADB LOGIN SET UP'
-
-sudo mysql_secure_installation
-
-
-echo 'done'
-
-
-
-echo 'Mariadb SET UP'
-sudo systemctl start mariadb
-
-echo 'done'
-
-echo 'php 7.4 ssl SET UP'
-sudo yum install http://rpms.remirepo.net/enterprise/remi-release-7.rpm -y
-echo 'done'
-
-echo 'php7.4 SET UP'
-
-sudo yum install php php-common php-opcache php-mcrypt php-cli php-gd php-curl php-mysqlnd -y
-
-
-echo 'done'
-
-echo 'RESTART APACHE SET UP'
-
-sudo systemctl restart httpd.service
-
-
-echo 'done'
-
-echo 'PHP 7.4 SET UP'
-
-sudo yum install php php-common php-opcache php-mcrypt php-cli php-gd php-curl php-mysqlnd
-
-
-echo 'done'
-
-echo 'FFMPEG SET UP'
-
-sudo yum install epel-release -y
-
-
-echo 'done'
-
-echo 'FFMPEG SET UP'
-
-sudo yum localinstall --nogpgcheck https://download1.rpmfusion.org/free/el/rpmfusion-free-release-7.noarch.rpm -y
-
-
-
-echo 'done'
-
-echo 'FFMPEG SET UP'
-
-sudo yum install ffmpeg ffmpeg-devel -y 
-
-
-echo 'done'
-
-echo 'firewall'
-
-sudo firewall-cmd --permanent --zone=public --add-service=http
-
-
-echo 'done'
-
-echo 'firewall'
-sudo firewall-cmd --permanent --zone=public --add-service=https
-
-
-echo 'done'
-
-
-echo 'firewall'
-sudo firewall-cmd --reload
-
-
-echo 'done'
-
-echo 'phpmyadmin'
-
-sudo yum install phpmyadmin -y 
-
-echo 'done'
+#!/bin/bash
+###########################################################
+#Script Auto Install Apache, PHP 7.4, MariaDB, phpmyadmin
+#Author		:  MAVEN
+#Instagram	:  https://www.kalixhosting.com
+#Version	:  1.0.0
+#Date		:  02/08/2023
+#OS		:  Centos 7
+###########################################################
+
+echo "Auto Install LAMP Centos 7"
+echo "###########################"
+
+#Update Centos
+yum -y update
+yum -y install wget
+yum -y upgrade
+yum install wget nano zip unzip -y
+
+#EPEL Repo
+wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+wget http://rpms.remirepo.net/enterprise/remi-release-7.rpm
+rpm -Uvh remi-release-7.rpm epel-release-latest-7.noarch.rpm
+yum --enablerepo=remi update remi-release
+
+#Install MariaDB
+yum -y install mariadb-server mariadb
+systemctl start mariadb.service
+systemctl enable mariadb.service
+
+#Install Apache
+yum -y install httpd
+systemctl start httpd.service
+systemctl enable httpd.service
+
+#FIREWALL PORTS HTTP AND HTTPS
+firewall-cmd --permanent --zone=public --add-service=http 
+firewall-cmd --permanent --zone=public --add-service=https
+firewall-cmd --reload
+
+#Install PHP 7.4
+yum --enablerepo=remi-php74 install php74-php php74-php-pear php74-php-bcmath php74-php-pecl-jsond-devel php74-php-mysqlnd php74-php-gd php74-php-common php74-php-intl php74-php-cli php74-php php74-php-xml php74-php-opcache php74-php-pecl-apcu php74-php-pecl-jsond php74-php-pdo php74-php-gmp php74-php-process php74-php-pecl-imagick php74-php-devel php74-php-mbstring php74-php-soap php74-php-mcrypt php-mcrypt php-soap phpMyAdmin roundcubemail memcached php74-php-pecl-memcached php74-php-pecl-memcache php-opcache php-redis redis php74-php-redis php74-php-zip php74-php-pspell php-brotli
+
+
+systemctl restart httpd.service
+
+#MariaDB Support PHP
+yum -y install php74-mysqlnd php74-pdo
+systemctl restart httpd.service
+
+#Install PHPMYADMIN
+yum -y install phpMyAdmin
+
+#CONFIG phpmyadmin
+mv /etc/httpd/conf.d/phpMyAdmin.conf /etc/httpd/conf.d/phpMyAdmin.conf.backup
+wget https://raw.githubusercontent.com/KALIXHOSTING/lamp-centos-7-/main/phpMyAdmin.conf
+cp phpMyAdmin.conf /etc/httpd/conf.d/
+
+echo "Password Root MariaDB ? | Change MariaDB Root Password ? (y|n)"
+read passmaria
+
+case $passmaria in
+	y | Y)
+	mysql_secure_installation
+	;;
+
+	n | N)
+	;;
+
+	*)
+	echo "Wrong Syntax :p"
+	;;
+esac
+
+systemctl restart httpd.service
+
+echo "######## KALIXHOSTING AUTOINSTALL | FINISH #########"
