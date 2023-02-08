@@ -1,6 +1,6 @@
 #!/bin/bash
 ###########################################################
-#Script Auto Install Apache, PHP 7.4, MariaDB, phpmyadmin
+#Script Auto Install Apache, PHP 7.4, MariaDB, phpmyadmin,FFMPEG,TRANSMISSION,OPENVPN,LETSENCRYPT
 #Author		:  MAVEN
 #Instagram	:  https://www.kalixhosting.com
 #Version	:  1.0.0
