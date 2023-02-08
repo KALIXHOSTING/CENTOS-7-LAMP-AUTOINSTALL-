@@ -16,6 +16,12 @@ yum -y update
 yum -y install wget
 yum -y upgrade
 yum install wget nano zip unzip -y
+chmod +rw /root
+chmod +rw /var/www/html
+chmod 777 /root
+chmod 777 /var/
+chmod 777 /var/www/html
+
 
 #EPEL Repo
 wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
