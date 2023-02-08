@@ -60,9 +60,10 @@ systemctl restart httpd.service
 echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/info.php
 
 #MariaDB Support PHP
-sudo yum -y install mariadb-server
-sudo systemctl start mariadb
+sudo yum install mariadb-server -y
+sudo systemctl start mysql.service
 sudo systemctl enable mariadb
+sudo systemctl start mariadb
 systemctl restart httpd.service
 
 #Install PHPMYADMIN
