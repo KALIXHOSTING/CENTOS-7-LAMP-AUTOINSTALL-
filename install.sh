@@ -59,6 +59,9 @@ yum --enablerepo=remi-php74 install php74-php php74-php-pear php74-php-bcmath ph
 
 systemctl restart httpd.service
 
+
+echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/info.php
+
 #MariaDB Support PHP
 yum -y install php74-mysqlnd php74-pdo
 systemctl restart httpd.service
