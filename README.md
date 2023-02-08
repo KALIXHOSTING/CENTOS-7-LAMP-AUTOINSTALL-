@@ -19,7 +19,7 @@ OPENVPN
 How to use
 Login as root and enter to start install
 Do the Following Command:
-wget https://raw.githubusercontent.com/KALIXHOSTING/lamp-centos-7-/main/install.sh
+wget https://raw.githubusercontent.com/KALIXHOSTING/CENTOS-7-LAMP-AUTOINSTALL-/main/install.sh
 # chmod 777 ./install.sh 
 then run 
 
