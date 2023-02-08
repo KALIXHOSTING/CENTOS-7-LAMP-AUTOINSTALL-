@@ -50,7 +50,7 @@ firewall-cmd --permanent --zone=public --add-service=https
 firewall-cmd --reload
 
 #Install PHP 7.4
-yum --enablerepo=remi-php74 install php74-php php74-php-pear php74-php-bcmath php74-php-pecl-jsond-devel php74-php-mysqlnd php74-php-gd php74-php-common php74-php-intl php74-php-cli php74-php php74-php-xml php74-php-opcache php74-php-pecl-apcu php74-php-pecl-jsond php74-php-pdo php74-php-gmp php74-php-process php74-php-pecl-imagick php74-php-devel php74-php-mbstring php74-php-soap php74-php-mcrypt php-mcrypt php-soap phpMyAdmin roundcubemail memcached php74-php-pecl-memcached php74-php-pecl-memcache php-opcache php-redis redis php74-php-redis php74-php-zip php74-php-pspell php-brotli
+yum --enablerepo=remi-php74 install php74-php php74-php-pear php74-php-bcmath php74-php-pecl-jsond-devel php74-php-mysqlnd php74-php-gd php74-php-common php74-php-intl php74-php-cli php74-php php74-php-xml php74-php-opcache php74-php-pecl-apcu php74-php-pecl-jsond php74-php-pdo php74-php-gmp php74-php-process php74-php-pecl-imagick php74-php-devel php74-php-mbstring php74-php-soap php74-php-mcrypt php-mcrypt php-soap phpMyAdmin roundcubemail memcached php74-php-pecl-memcached php74-php-pecl-memcache php-opcache php-redis redis php74-php-redis php74-php-zip php74-php-pspell php-brotli -y
 
 yum --enablerepo=epel,remi install httpd -y
 
@@ -60,7 +60,9 @@ systemctl restart httpd.service
 echo "<?php phpinfo(); ?>" | sudo tee /var/www/html/info.php
 
 #MariaDB Support PHP
-yum -y install php74-mysqlnd php74-pdo
+sudo yum -y install mariadb-server
+sudo systemctl start mariadb
+sudo systemctl enable mariadb
 systemctl restart httpd.service
 
 #Install PHPMYADMIN
@@ -86,7 +88,7 @@ case $passmaria in
 	echo "Wrong Syntax :p"
 	;;
 esac
-
+#RESTART APACHE
 systemctl restart httpd.service
 
 
@@ -94,11 +96,18 @@ systemctl restart httpd.service
 sudo yum -y install certbot python2-certbot-apache mod_ssl
 
 yum -y install perl-CGI perl-libwww-perl perl-DBI perl-DBD-MySQL perl-GD perl-Cache-Memcached perl-Digest-SHA perl-LWP-Protocol-https
-
+#RESTART APACHE
 systemctl restart httpd.service
 
+#CHMOD VAR/WWW/HTML
+chmod +rw /var
 chmod +rw /var/www/html
-chmod 777 /var/
+chmod 777 /var
 chmod 777 /var/www/html
+
+#install FFMPEG
+sudo yum -y install epel-release
+sudo yum -y install ffmpeg ffmpeg-devel
+
 
 echo "######## KALIXHOSTING AUTOINSTALL | FINISH #########"
