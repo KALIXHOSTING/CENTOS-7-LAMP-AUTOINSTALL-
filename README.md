@@ -53,7 +53,7 @@ Now Restart Apache
 # sudo systemctl restart httpd
 
 
-Enable Letencrypt on Host
+Enable Let’s Encrypt on Host
 ***Make Sure You Name it as your domainname 
 go to
 # cd /etc/httpd/conf.d
@@ -71,7 +71,7 @@ Then
 Now Restart Apache
 # sudo service httpd restart  
 
-Now Run Letsencyprt Command
+Now Run Let’s Encrypt Command
 # sudo certbot --apache -d example.com
 
-Now your host will have SSL with Letencypt Enabled
+Now your host will have SSL with Let’s Encrypt Enabled
