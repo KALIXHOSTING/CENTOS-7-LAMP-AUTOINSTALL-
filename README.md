@@ -25,3 +25,52 @@ then run
 
 # ./install.sh
 
+
+Enable Mod Rewrite
+
+sudo nano /etc/httpd/conf.modules.d/00-base.conf
+
+
+Add this Line to file
+
+LoadModule rewrite_module modules/mod_rewrite.so
+
+Then open This File
+sudo nano /etc/httpd/conf/httpd.conf
+
+And Change 
+ <Directory /var/www/html>
+    AllowOverride From None
+ </Directory>
+ 
+ to
+  <Directory /var/www/html>
+    AllowOverride All
+ </Directory>
+
+Now Restart Apache
+sudo systemctl restart httpd
+
+
+Enable Letencrypt on Host
+***Make Sure You Name it as your domainname 
+go to
+cd /etc/httpd/conf.d
+Then 
+sudo nano yourDomainName.conf 
+
+<VirtualHost *:80>
+    ServerName yourDomainName.com
+    DocumentRoot /var/www/html
+    ServerAlias www.yourDomainName.com
+    ErrorLog /var/www/error.log
+    CustomLog /var/www/requests.log combined
+</VirtualHost>
+
+Now Restart Apache
+sudo service httpd restart  
+
+Now Run Letsencyprt Command
+sudo certbot --apache -d example.com
+
+Now your host will have SSL with Letencypt Enabled
