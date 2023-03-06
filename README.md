@@ -61,13 +61,13 @@ Then
 # sudo nano yourDomainName.conf 
 
 # 
-# <VirtualHost *:80>
-  #   ServerName yourDomainName.com
- #    DocumentRoot /var/www/html
- #    ServerAlias www.yourDomainName.com
- #    ErrorLog /var/www/error.log
- #    CustomLog /var/www/requests.log combined
-# </VirtualHost>
+<VirtualHost *:80>
+    ServerName yourDomainName.com
+    DocumentRoot /var/www/html
+    ServerAlias www.yourDomainName.com
+    ErrorLog /var/www/error.log
+    CustomLog /var/www/requests.log combined
+</VirtualHost>
 # 
 Now Restart Apache
 # sudo service httpd restart  
