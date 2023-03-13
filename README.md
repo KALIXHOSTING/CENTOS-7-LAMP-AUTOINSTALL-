@@ -1,5 +1,8 @@
 LAMP AUTO INSTALL SCRIPT FOR CENTOS 7 
 
+This Auto Install Script Works For XFS (XFILESHARE) Install
+https://sibsoft.net/xfilesharing.html
+
 Package Contents
 
 Apache
