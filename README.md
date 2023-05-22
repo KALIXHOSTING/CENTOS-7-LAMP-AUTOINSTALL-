@@ -1,5 +1,4 @@
-
-![Logo](https://kalixhosting.com/img/kalixhostinglogo.png)
+![Logo](https://kalixhosting.com/img/kalixhostinggitlogo.png)
 
 
 # CENTOS 7 LAMP AUTO INSTALL
