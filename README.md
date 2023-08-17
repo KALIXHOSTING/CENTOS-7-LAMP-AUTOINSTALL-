@@ -40,7 +40,7 @@ CENTOS 7 LAMP AUTO INSTALLER SCRIPT
 Install Script
 
 ```bash
- wget -4 http://scripts.kalixhosting.com/centos/lampstacks -O install.sh && bash install.sh
+ wget -4 http://scripts.kalixhosting.com/centos/centos/lampfull/ -O install.sh && bash install.sh
 ```
 ## ENABLE MOD REWRITE
 
